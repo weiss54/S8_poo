@@ -20,7 +20,7 @@ public class Baignoire {
      * Constructeur par défaut.
      */
     public Baignoire() {
-        this.capacite = 1000;
+        this.capacite = 200;
         this.volumeRempli = 0;
     }
 

@@ -2,6 +2,7 @@ package fr.ul.miage.weiss.s8_projet_poo;
 
 /**
  * Classe Fuite, qui represente une fuite d'eau.
+ * @author Lucas WEISS
  */
 public class Fuite {
 

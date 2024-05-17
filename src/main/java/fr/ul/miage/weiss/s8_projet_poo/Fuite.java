@@ -17,14 +17,6 @@ public class Fuite {
     private boolean reparer;
 
     /**
-     * Constructeur par défaut.
-     */
-    public Fuite() {
-        this.debit = 0;
-        this.reparer = false;
-    }
-
-    /**
      * Constructeur avec un parametre.
      * @param debit
      */

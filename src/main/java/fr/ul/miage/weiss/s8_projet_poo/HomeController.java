@@ -32,9 +32,17 @@ public class HomeController {
     private Stack<FuiteController> fuites = new Stack<>();
     private Stack<RobinetController> robinets = new Stack<>();
 
+    private Modele modele;
+
+    public HomeController(Modele modele) {
+        this.modele = modele;
+    }
 
     @FXML
     public void initialize() {
+        modele.getPropertyVolumeRempliBaignoire().addListener((observable, oldValue, newValue) -> {
+            text_libelle_volume.setText(newValue.toString());
+        });
         affichage_mode_simulation(false);
     }
 
@@ -65,16 +73,21 @@ public class HomeController {
 
     @FXML
     public void action_start() {
+        modele.demarrerSimulation();
+        //TODO on doit passer par le modele
         affichage_mode_simulation(true);
     }
 
     public void action_stop() {
+        modele.arreterSimulation();
+        //TODO on doit passer par le modele
         affichage_mode_simulation(false);
     }
 
     @FXML
     public void action_robinet_moins() {
-        if (Robinet.isSuppressionPossible()) {
+        boolean res = modele.supprimerRobinet();
+        if (res) {
             RobinetController robinetController = robinets.pop();
             robinetController.suppression();
             this.pane_robinets.getChildren().removeLast();
@@ -83,9 +96,11 @@ public class HomeController {
 
     @FXML
     public void action_robinet_plus() {
-        if (Robinet.isAjoutPossible()) {
+        Robinet r = modele.ajouterRobinet();
+        if (r != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(MyApplication.class.getResource("robinet.fxml"));
+                fxmlLoader.setControllerFactory(param -> new RobinetController(r));
                 Parent pane = fxmlLoader.load();
                 robinets.push(fxmlLoader.getController());
                 this.pane_robinets.getChildren().add(pane);
@@ -98,7 +113,8 @@ public class HomeController {
 
     @FXML
     public void action_fuite_moins() {
-        if (Fuite.isSuppressionPossible()) {
+        boolean res = modele.supprimerFuite();
+        if (res) {
             FuiteController fuiteController = fuites.pop();
             fuiteController.suppression();
             this.pane_fuites.getChildren().removeLast();
@@ -107,9 +123,11 @@ public class HomeController {
 
     @FXML
     public void action_fuite_plus() {
-        if (Fuite.isAjoutPossible()) {
+        Fuite f = modele.ajouterFuite();
+        if (f != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(MyApplication.class.getResource("fuite.fxml"));
+                fxmlLoader.setControllerFactory(param -> new FuiteController(f));
                 Pane pane = fxmlLoader.load();
                 fuites.push(fxmlLoader.getController());
                 this.pane_fuites.getChildren().add(pane);

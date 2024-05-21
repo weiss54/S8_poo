@@ -23,9 +23,8 @@ public class FuiteController {
     }
 
     public FuiteController() {
-        this.fuite = new Fuite(10);
+        this.fuite = new Fuite();
     }
-
 
     @FXML
     public void initialize() {
@@ -50,6 +49,12 @@ public class FuiteController {
         });
         fuite.debitProperty().addListener((observable, oldValue, newValue) -> {
             text_fuite.setText(observable.getValue().toString());
+        });
+        fuite.reparerProperty().addListener((observable, oldValue, newValue) -> {
+            image_reparation.setVisible(newValue);
+        });
+        image_fuite.onMouseClickedProperty().set(event -> {
+            if (!fuite.isReparer()) fuite.reparer();
         });
         visibiliteReparation(false);
         visibiliteSimulation(false);

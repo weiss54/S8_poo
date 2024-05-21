@@ -1,6 +1,8 @@
 package fr.ul.miage.weiss.s8_projet_poo;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -21,15 +23,14 @@ public class Fuite {
     /**
      * Indique si la fuite est réparée.
      */
-    private boolean reparer;
+    private BooleanProperty reparer;
 
     /**
-     * Constructeur avec un parametre.
-     * @param debit
+     * Constructeur sans parametre.
      */
-    public Fuite(int debit) {
+    public Fuite() {
         this.debit = new SimpleIntegerProperty(10);
-        this.reparer = false;
+        this.reparer = new SimpleBooleanProperty(false);
         Fuite.setNbFuitesPlus();
     }
 
@@ -37,15 +38,14 @@ public class Fuite {
      * Permet d'indiquer que la fuite est réparée.
      */
     public void reparer() {
-        this.reparer = true;
+        //TODO on doit passser par le modele
+
+        this.reparer.set(true);
     }
 
-    /**
-     * Permet de récupérer le débit de la fuite.
-     * @return débit de la fuite.
-     */
     public int getDebit() {
-        return this.debit.get();
+        if (!isReparer()) return this.debit.get();
+        return 0;
     }
 
     public IntegerProperty debitProperty() {
@@ -61,6 +61,10 @@ public class Fuite {
      * @return true si la fuite est réparée, false sinon.
      */
     public boolean isReparer() {
+        return reparer.get();
+    }
+
+    public BooleanProperty reparerProperty() {
         return reparer;
     }
 

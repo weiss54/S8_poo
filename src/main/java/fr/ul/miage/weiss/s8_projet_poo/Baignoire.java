@@ -1,5 +1,8 @@
 package fr.ul.miage.weiss.s8_projet_poo;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 /**
  * Classe représentant une baignoire.
  * @author Lucas WEISS
@@ -14,14 +17,14 @@ public class Baignoire {
     /**
      * Volume rempli de la baignoire.
      */
-    private int volumeRempli;
+    private IntegerProperty volumeRempli;
 
     /**
      * Constructeur par défaut.
      */
     public Baignoire() {
         this.capacite = 200;
-        this.volumeRempli = 0;
+        this.volumeRempli = new SimpleIntegerProperty(0);
     }
 
     /**
@@ -30,7 +33,7 @@ public class Baignoire {
      */
     public Baignoire(int capacite) {
         this.capacite = capacite;
-        this.volumeRempli = 0;
+        this.volumeRempli = new SimpleIntegerProperty(0);
     }
 
     /**
@@ -40,9 +43,9 @@ public class Baignoire {
      */
     public synchronized void remplir(int volume) {
         if (volume > 0) {
-            this.volumeRempli += volume;
-            if (this.volumeRempli > this.capacite) {
-                this.volumeRempli = this.capacite;
+            this.volumeRempli.set(this.volumeRempli.get()+volume);
+            if (this.volumeRempli.get() > this.capacite) {
+                this.volumeRempli.set(this.capacite);
             }
         }
     }
@@ -54,9 +57,9 @@ public class Baignoire {
      */
     public synchronized void vider(int volume) {
         if (volume > 0) {
-            this.volumeRempli -= volume;
-            if (this.volumeRempli < 0) {
-                this.volumeRempli = 0;
+            this.volumeRempli.set(this.volumeRempli.get()-volume);
+            if (this.volumeRempli.get() < 0) {
+                this.volumeRempli.set(0);
             }
         }
     }
@@ -74,7 +77,15 @@ public class Baignoire {
      * @return le volume rempli de la baignoire.
      */
     public int getVolumeRempli() {
+        return volumeRempli.get();
+    }
+
+    //TODO javadoc
+    public IntegerProperty volumeRempliProperty() {
         return volumeRempli;
     }
 
+    public void demarrerSimulation() {
+        this.volumeRempli.set(0);
+    }
 }

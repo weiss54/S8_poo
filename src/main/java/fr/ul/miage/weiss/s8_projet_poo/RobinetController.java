@@ -16,8 +16,8 @@ public class RobinetController {
 
     private Robinet robinet;
 
-    public RobinetController() {
-        this.robinet = new Robinet();
+    public RobinetController(Robinet r) {
+        this.robinet = r;
     }
 
     @FXML

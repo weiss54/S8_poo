@@ -12,6 +12,8 @@ public class MyApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MyApplication.class.getResource("hello-view.fxml"));
+        Modele modele = new Modele();
+        fxmlLoader.setControllerFactory(c -> new HomeController(modele));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setMinWidth(900);
         stage.setMinHeight(600);

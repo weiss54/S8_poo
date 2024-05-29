@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Fuite {
 
     private static int nbFuites = 0;
-    private static final int NB_FUITES_MAX = 7;
+    private static final int NB_FUITES_MAX = 5 ;
 
     /**
      * Debit de la fuite.
@@ -38,8 +38,6 @@ public class Fuite {
      * Permet d'indiquer que la fuite est réparée.
      */
     public void reparer() {
-        //TODO on doit passser par le modele
-
         this.reparer.set(true);
     }
 
@@ -96,5 +94,8 @@ public class Fuite {
         Fuite.setNbFuitesMoins();
     }
 
+    public void finSimulation() {
+        this.reparer.set(false);
+    }
 
 }

@@ -9,7 +9,7 @@ public class FuiteTest {
 
     @Test
     public void constructorTest() {
-        Fuite f = new Fuite(5);
+        Fuite f = new Fuite();
         assertEquals(5, f.getDebit());
         assertFalse(f.isReparer());
     }

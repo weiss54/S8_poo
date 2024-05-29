@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Robinet {
 
     private static int nbRobinets = 0;
-    private static final int NB_ROBINETS_MAX = 7;
+    private static final int NB_ROBINETS_MAX = 5;
 
     /**
      * Débit du robinet.
@@ -49,6 +49,7 @@ public class Robinet {
     }
 
     public void setDebit(int debit) {
+        System.out.println("debit = " + debit);
         this.debit.set(debit);
     }
 

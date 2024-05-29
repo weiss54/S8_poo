@@ -23,11 +23,6 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Text>
-            <Text fx:id="text_robinet" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N°1" textAlignment="CENTER" wrappingWidth="120.0">
-               <font>
-                  <Font name="System Bold Italic" size="13.0" />
-               </font>
-            </Text>
          </children>
       </AnchorPane>
    </children>

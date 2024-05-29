@@ -22,8 +22,10 @@ public class FluxRobinet extends ScheduledService<Baignoire> {
         return new Task<Baignoire>() {
             @Override
             protected Baignoire call() throws Exception {
-                LOGGER.info("[FluxRobinet] Remplissage de " + robinet.getDebit() + "L");
-                baignoire.remplir(robinet.getDebit());
+                if (!baignoire.estRemplie()) {
+                    LOGGER.info("[FluxRobinet] Remplissage de " + robinet.getDebit() + "L");
+                    baignoire.remplir(robinet.getDebit());
+                }
                 return baignoire;
             }
         };

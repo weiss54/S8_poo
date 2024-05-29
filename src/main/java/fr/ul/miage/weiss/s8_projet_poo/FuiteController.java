@@ -1,5 +1,6 @@
 package fr.ul.miage.weiss.s8_projet_poo;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
@@ -17,13 +18,11 @@ public class FuiteController {
     private ImageView image_fuite, image_reparation;
 
     private Fuite fuite;
+    private BooleanProperty simulation;
 
-    public FuiteController(Fuite fuite) {
+    public FuiteController(Fuite fuite, BooleanProperty simulation) {
         this.fuite = fuite;
-    }
-
-    public FuiteController() {
-        this.fuite = new Fuite();
+        this.simulation = simulation;
     }
 
     @FXML
@@ -54,7 +53,7 @@ public class FuiteController {
             image_reparation.setVisible(newValue);
         });
         image_fuite.onMouseClickedProperty().set(event -> {
-            if (!fuite.isReparer()) fuite.reparer();
+            if (!fuite.isReparer() && simulation.get()) fuite.reparer();
         });
         visibiliteReparation(false);
         visibiliteSimulation(false);

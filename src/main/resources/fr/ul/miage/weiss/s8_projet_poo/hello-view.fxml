@@ -65,7 +65,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </TextField>
-                              <Text fx:id="text_libelle_volume" strokeType="OUTSIDE" strokeWidth="0.0" text="120/240">
+                              <Text fx:id="text_libelle_volume" strokeType="OUTSIDE" strokeWidth="0.0" text="0/100">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -74,6 +74,14 @@
                         </StackPane>
                      </children>
                   </HBox>
+                  <Text fx:id="text_temps_simulation" strokeType="OUTSIDE" strokeWidth="0.0" text="10 secondes" StackPane.alignment="BOTTOM_RIGHT">
+                     <font>
+                        <Font name="Al Bayan Bold" size="14.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets right="20.0" />
+                     </StackPane.margin>
+                  </Text>
                </children>
                <BorderPane.margin>
                   <Insets bottom="10.0" top="10.0" />
@@ -81,7 +89,7 @@
             </StackPane>
          </center>
          <bottom>
-            <HBox fx:id="pane_fuites" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="pane_fuites" alignment="CENTER" prefHeight="120.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="10.0" />
                </BorderPane.margin></HBox>
@@ -144,7 +152,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="button_export" mnemonicParsing="false" style="-fx-background-color: orange;" text="Exporter" textFill="WHITE">
+                              <Button fx:id="button_export" mnemonicParsing="false" onAction="#action_exporter" style="-fx-background-color: orange;" text="Exporter" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>

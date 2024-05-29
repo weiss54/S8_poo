@@ -22,8 +22,10 @@ public class FluxFuite extends ScheduledService<Baignoire> {
         return new Task<Baignoire>() {
             @Override
             protected Baignoire call() throws Exception {
-                LOGGER.info("[FluxFuite] Fuite de " + fuite.getDebit() + "L");
-                baignoire.vider(fuite.getDebit());
+                if (!baignoire.estRemplie()) {
+                    LOGGER.info("[FluxFuite] Fuite de " + fuite.getDebit() + "L");
+                    baignoire.vider(fuite.getDebit());
+                }
                 return baignoire;
             }
         };

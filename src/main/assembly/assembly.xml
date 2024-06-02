@@ -1,0 +1,15 @@
+<assembly>
+    <id>bindist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

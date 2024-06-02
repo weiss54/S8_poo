@@ -1,0 +1,7 @@
+site_name: Projet Baignoire - WEISS Lucas
+nav:
+  - Accueil: index.md
+  - Installation: installation.md
+  - Utilisation: utilisation.md
+  - A propos: a_propos.md
+use_directory_urls: false

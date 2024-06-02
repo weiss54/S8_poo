@@ -7,10 +7,16 @@ import javafx.beans.property.SimpleIntegerProperty;
  * Classe représentant un robinet.
  * @author Lucas WEISS
  */
-//TODO javadoc
 public class Robinet {
 
+    /**
+     * Nombre de robinets au sein de la simulation.
+     */
     private static int nbRobinets = 0;
+
+    /**
+     * Nombre de robinets maximum autorisé.
+     */
     private static final int NB_ROBINETS_MAX = 5;
 
     /**
@@ -48,35 +54,60 @@ public class Robinet {
         return debit;
     }
 
+    /**
+     * Change le débit du robinet.
+     * @param debit
+     */
     public void setDebit(int debit) {
         System.out.println("debit = " + debit);
         this.debit.set(debit);
     }
 
+    /**
+     * Permet de récupérer le nombre de robinets.
+     * @return
+     */
     public static int getNbRobinets() {
         return nbRobinets;
     }
 
+    /**
+     * Permet d'ajouter un robinet.
+     */
     public static void setNbRobinetsPlus() {
         if (nbRobinets < NB_ROBINETS_MAX) {
             nbRobinets++;
         }
     }
 
+    /**
+     * Permet de retirer un robinet.
+     */
     public static void setNbRobinetsMoins() {
         if (nbRobinets > 0) {
             nbRobinets--;
         }
     }
 
+    /**
+     * Permet de savoir si une suppression est possible.
+     * @return
+     */
     public static boolean isSuppressionPossible() {
         return nbRobinets > 0;
     }
 
+    /**
+     * Permet de savoir si un ajout est possible.
+     * @return
+     */
     public static boolean isAjoutPossible() {
         return nbRobinets < NB_ROBINETS_MAX;
     }
 
+    /**
+     * Permet de supprimer un robinet.
+     */
     public void suppression() {
         Robinet.setNbRobinetsMoins();
     }

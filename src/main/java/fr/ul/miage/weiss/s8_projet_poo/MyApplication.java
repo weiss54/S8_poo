@@ -7,6 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe principale de l'application.
+ * @author Lucas WEISS
+ */
 public class MyApplication extends Application {
 
     @Override
@@ -15,6 +19,7 @@ public class MyApplication extends Application {
         Modele modele = new Modele();
         fxmlLoader.setControllerFactory(c -> new HomeController(modele));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+        stage.getIcons().add(new javafx.scene.image.Image(MyApplication.class.getResourceAsStream("logo.png")));
         stage.setMinWidth(900);
         stage.setMinHeight(600);
         stage.setTitle("Projet COO S8 - WEISS Lucas");

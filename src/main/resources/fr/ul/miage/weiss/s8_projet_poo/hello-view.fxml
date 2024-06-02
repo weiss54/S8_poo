@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -35,6 +36,11 @@
          <center>
             <StackPane prefHeight="244.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
+                  <Rectangle fx:id="rectangle_eau" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="160.0" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets bottom="30.0" />
+                     </StackPane.margin>
+                  </Rectangle>
                   <ImageView fitHeight="205.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@baignoire.png" />
@@ -82,6 +88,14 @@
                         <Insets right="20.0" />
                      </StackPane.margin>
                   </Text>
+                  <ImageView fx:id="image_personnage" fitHeight="77.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <StackPane.margin>
+                        <Insets bottom="102.0" left="50.0" />
+                     </StackPane.margin>
+                     <image>
+                        <Image url="@personnage.png" />
+                     </image>
+                  </ImageView>
                </children>
                <BorderPane.margin>
                   <Insets bottom="10.0" top="10.0" />
@@ -133,14 +147,14 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0">
                      <children>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Options">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </Text>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="239.0">
                            <children>
                               <Button fx:id="button_stop" mnemonicParsing="false" onAction="#action_stop" style="-fx-background-color: red;" text="Stop" textFill="WHITE">
                                  <HBox.margin>
@@ -152,7 +166,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="button_export" mnemonicParsing="false" onAction="#action_exporter" style="-fx-background-color: orange;" text="Exporter" textFill="WHITE">
+                              <Button fx:id="button_export" mnemonicParsing="false" onAction="#action_exporter" style="-fx-background-color: orange;" text="Exporter/Détails" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>

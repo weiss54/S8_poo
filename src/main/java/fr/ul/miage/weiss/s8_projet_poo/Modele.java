@@ -5,6 +5,7 @@ import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -13,13 +14,13 @@ import java.util.logging.Logger;
 public class Modele {
 
     private static final Duration PERIODE_SIMULATION = Duration.seconds(1);
-    private Logger LOGGER = Logger.getLogger(Modele.class.getName());
-    private BooleanProperty simulationEnCours;
-    private BooleanProperty simulationComplete;
+    private final Logger LOGGER = Logger.getLogger(Modele.class.getName());
+    private final BooleanProperty simulationEnCours;
+    private final BooleanProperty simulationComplete;
 
-    private Stack<Robinet> robinets;
-    private Stack<Fuite> fuites;
-    private Baignoire baignoire;
+    private final Stack<Robinet> robinets;
+    private final Stack<Fuite> fuites;
+    private final Baignoire baignoire;
     private List<ScheduledService> listThread;
     private IntegerProperty dureeSimulation;
     private StringProperty messageErreur;
@@ -60,8 +61,8 @@ public class Modele {
                 thread.start();
             }
         } else {
-            LOGGER.warning("[Modèle] Impossible de démarrer la simulation, aucun robinet ni fuite n'a été ajouté");
-            this.messageErreur.set("Impossible de démarrer la simulation, aucun robinet ni fuite n'a été ajouté");
+            LOGGER.warning("[Modèle] Impossible de démarrer la simulation, aucun robinet n'a été ajouté");
+            this.messageErreur.set("Impossible de démarrer la simulation, aucun robinet n'a été ajouté");
         }
     }
 
@@ -74,11 +75,13 @@ public class Modele {
                     protected Object call() throws Exception {
                         synchronized (this) {
                             if (simulationEnCours.get() && !baignoire.estRemplie() ) {
-                                dureeSimulation.set(dureeSimulation.get() + 1);
                                 baignoire.enregistrerVolume(dureeSimulation.get());
                                 if (baignoire.compareRemplissageCapacite()) {
                                     LOGGER.info("[Modèle] Fin de la simulation");
                                     baignoire.setEstRemplie(true);
+                                    simulationComplete.set(true);
+                                } else {
+                                    dureeSimulation.set(dureeSimulation.get() + 1);
                                 }
                             }
                             return null;
@@ -145,6 +148,10 @@ public class Modele {
         return false;
     }
 
+    public void exporterDonnees(File chemin) {
+        baignoire.exporterDonnees(chemin);
+    }
+
     public BooleanProperty getSimulationEnCours() {
         return simulationEnCours;
     }
@@ -162,7 +169,7 @@ public class Modele {
     }
 
     public boolean simulationLancable() {
-        return !robinets.isEmpty() || !fuites.isEmpty();
+        return !robinets.isEmpty();
     }
 
     public StringProperty messageErreurProperty() {
@@ -176,4 +183,17 @@ public class Modele {
     public Map<Integer, Integer> getHistorique() {
         return baignoire.getHistorique();
     }
+
+    public IntegerProperty volumeEauTotalRobinetProperty() {
+        return baignoire.volumeEauTotalRobinetProperty();
+    }
+
+    public IntegerProperty volumeEauTotalFuiteProperty() {
+        return baignoire.volumeEauTotalFuiteProperty();
+    }
+
+    public BooleanProperty simulationCompleteProperty() {
+        return simulationComplete;
+    }
+
 }

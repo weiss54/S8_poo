@@ -6,8 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -64,6 +66,18 @@ public class HomeController {
     /* Attribut qui content les écrans qui représentent les robinets */
     private Stack<RobinetController> robinets = new Stack<>();
 
+    /**
+     * Attribut lié à la vue de cet écran, contient l'image du personnage qui apparaît à la fin de la simulation
+     */
+    @FXML
+    private ImageView image_personnage;
+
+    /**
+     * Attribut lié à la vue de cet écran, contient le rectangle qui représente l'eau dans la baignoire
+     */
+    @FXML
+    private Rectangle rectangle_eau;
+
     /* Attribut qui contient le modèle de l'application */
     private Modele modele;
 
@@ -98,8 +112,10 @@ public class HomeController {
                 }
             }
         });
+        rectangle_eau.setHeight(0);
         modele.getPropertyVolumeRempliBaignoire().addListener((observable, oldValue, newValue) -> {
             text_libelle_volume.setText(newValue.toString() + "/" + modele.getCapaciteBaignoire());
+            rectangle_eau.setHeight(70.0 / modele.getCapaciteBaignoire() * modele.getPropertyVolumeRempliBaignoire().get());
         });
         modele.getSimulationEnCours().addListener((observable, oldValue, newValue) -> {
             affichage_mode_simulation(newValue);
@@ -113,6 +129,12 @@ public class HomeController {
                 modele.messageErreurProperty().set("");
             }
         });
+        modele.simulationCompleteProperty().addListener((observable, oldValue, newValue) -> {
+            image_personnage.setVisible(newValue);
+            if (newValue) {
+                text_simulation.setText("Simulation terminée");
+            }
+        });
         affichage_mode_simulation(false);
     }
 
@@ -123,6 +145,7 @@ public class HomeController {
      * @param mode_simulation indique quel est le mode de la simulation (en cours ou non)
      */
     public void affichage_mode_simulation(boolean mode_simulation) {
+        rectangle_eau.setHeight(0);
         // Partie 1
         if (mode_simulation) {
             text_simulation.setText("Mode simulation activé");
@@ -168,6 +191,9 @@ public class HomeController {
         modele.arreterSimulation();
     }
 
+    /**
+     * Méthode lié au bouton exporter
+     */
     @FXML
     public void action_exporter() {
         try {
@@ -195,7 +221,7 @@ public class HomeController {
         if (res) {
             RobinetController robinetController = robinets.pop();
             robinetController.suppression();
-            this.pane_robinets.getChildren().removeLast();
+            this.pane_robinets.getChildren().remove(this.pane_robinets.getChildren().size()-1);
         } else {
             new AlerteView("Impossible de supprimer un robinet, il doit en avoir au moins un.");
         }
@@ -234,7 +260,7 @@ public class HomeController {
         if (res) {
             FuiteController fuiteController = fuites.pop();
             fuiteController.suppression();
-            this.pane_fuites.getChildren().removeLast();
+            this.pane_fuites.getChildren().remove(this.pane_fuites.getChildren().size()-1);
         } else {
             new AlerteView("Impossible de supprimer une fuite, il doit en avoir au moins une.");
         }
